@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manga index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            background-color: navy;
+            color: white;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        a {
+            color: lime;
+        }
+
+        a:hover {
+            color: skyblue;
+        }
+
+        .list {
+            display: flex;
+            flex-flow: row wrap;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .list > article {
+            width: 200px;
+            border: silver 1px solid;
+            border-radius: 5% 10% 5% 20%;
+            margin: 5px;
+            padding: 5px;
+            background-color: pink
+        }
+
+        .list > article > h1 {
+            text-align: center;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste de manga</h1>
+
+    <a href="{{ path('app_manga_new') }}">Ajouter un manga</a>
+
+    <section class="list">
+        {% for e in entities if e.id > 2 %}
+        <article>
+            <h1>{{ e.name|title }}</h1> {# Should be done into CSS :'(. #}
+            &Eacute;crit par : {{ e.author }}
+        </article>
+        {% else %}
+            <p class="text text-warning">Pas de manga.</p>
+        {% endfor %}
+    </section>
+</body>
+</html>
