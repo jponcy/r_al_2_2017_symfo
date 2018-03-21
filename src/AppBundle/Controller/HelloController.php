@@ -2,14 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
-class HelloController implements ContainerAwareInterface
+class HelloController extends Controller
 {
-    /* Get container. */
-    use ContainerAwareTrait;
 
     /**
      * @Route(path = "/hello", name = "coucou")
@@ -18,10 +15,6 @@ class HelloController implements ContainerAwareInterface
      */
     public function helloAction()
     {
-        $twig = $this->container->get('twig');
-        $content = $twig->render('Hello/hello.html.twig');
-
-        $result = new Response($content, Response::HTTP_OK);
-        return $result;
+        return $this->render('Hello/hello.html.twig');
     }
 }
