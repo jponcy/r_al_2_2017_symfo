@@ -4,17 +4,22 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class HelloController extends Controller
 {
 
     /**
-     * @Route(path = "/hello", name = "coucou")
+     * @Route(path = "/hello")
      *
-     * @return void
+     * @return Response
      */
-    public function helloAction()
+    public function helloAction(Request $request)
     {
-        return $this->render('Hello/hello.html.twig');
+        $name = $request->query->get('name', 'world');
+
+        return $this->render('Hello/hello.html.twig', [
+            'name' => $name
+        ]);
     }
 }
