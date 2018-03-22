@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping\Column;
 
 /**
  * @ORM\Entity(repositoryClass="\AppBundle\Repository\MangaRepository")
@@ -33,6 +34,20 @@ class Manga
      * @var string
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[A-Z]\w{2,}$/", message="Merci de respecter le format demandé :P")
+     * @var string
+     */
+    private $drawer;
+
+    /**
+     * @Column(type="text", length=666, nullable=true)
+     * @var string
+     */
+    private $description;
 
     /** Constructor. */
     public function __construct(string $name = null, string $author = null)
@@ -93,5 +108,53 @@ class Manga
     public function setAuthor($author)
     {
         $this->author = $author;
+    }
+
+    /**
+     * Set drawer
+     *
+     * @param string $drawer
+     *
+     * @return Manga
+     */
+    public function setDrawer($drawer)
+    {
+        $this->drawer = $drawer;
+
+        return $this;
+    }
+
+    /**
+     * Get drawer
+     *
+     * @return string
+     */
+    public function getDrawer()
+    {
+        return $this->drawer;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Manga
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
