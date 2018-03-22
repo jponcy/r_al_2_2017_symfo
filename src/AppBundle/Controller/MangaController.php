@@ -6,24 +6,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Manga;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\MangaRepository;
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * @Route("/manga")
+ */
 class MangaController extends Controller {
 
     /**
-     * @Route("/manga/", methods={"GET"})
+     * @Route("/", methods={"GET"})
+     * @Template()
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        $entities = $this->_repository()->findAll();
-
-        return $this->render('Manga/index.html.twig', [
-            'entities' => $entities
-        ]);
+        return [
+            'entities' => $this->_repository()->findAll()
+        ];
     }
 
     /**
-     * @Route("/manga/new", methods={"GET", "POST"})
+     * @Route("/new", methods={"GET", "POST"})
      */
     public function newAction(Request $request)
     {
@@ -31,16 +35,15 @@ class MangaController extends Controller {
     }
 
     /**
-     * @Route("/manga/{id}", requirements={"id":"^\d+$"})
+     * @Route("/{id}", requirements={"id":"^\d+$"})
      */
-    public function editAction(int $id, Request $request)
+    public function editAction(Manga $entity, Request $request)
     {
-        $entity = $this->_repository()->find($id);
         return $this->_newOrEdit($entity, $request);
     }
 
     /**
-     * @Route("/manga/fill")
+     * @Route("/fill")
      */
     public function fillAction()
     {
