@@ -49,9 +49,10 @@
     <a href="{{ path('app_manga_new') }}">Ajouter un manga</a>
 
     <section class="list">
-        {% for e in entities if e.id > 2 %}
+        {% for e in entities %}
         <article>
             <h1>{{ e.name|title }}</h1> {# Should be done into CSS :'(. #}
+            <a href="{{ path('app_manga_edit', {id: e.id}) }}">+-=*</a>
             &Eacute;crit par : {{ e.author }}
         </article>
         {% else %}
